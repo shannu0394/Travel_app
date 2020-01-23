@@ -24,7 +24,7 @@ const projectData = {};
 app.post('/add', add);
 function add(req, res) {
     projectData['city'] = req.body.city,
-    projectData['temp'] = req.body.temp
+    projectData['temp'] = req.body.temp,
+    projectData['feelings'] = req.body.feelings
     res.send(projectData);
-    console.log(projectData)
 };

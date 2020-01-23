@@ -2,7 +2,7 @@
 const key = '&units=metric&APPID=7888326b26769e661345dc10ca117453';
 
 /* API URL */
-const baseUrl = '//api.openweathermap.org/data/2.5/weather?q=';
+const baseUrl = '//api.openweathermap.org/data/2.5/weather?zip=';
 
 // Async GET
 const getData = async (url, city, key) => {
@@ -23,7 +23,6 @@ const postData = async (url = "", dataToPost = {}) => {
     });
     try {
         const postedData = await res.json();
-        console.log(postedData);
         return postedData;
     }
     catch (error) {
@@ -31,33 +30,41 @@ const postData = async (url = "", dataToPost = {}) => {
     }
 };
 
+// Find the date
+let date = new Date();
+let today = date.getDate()+'.'+ date.getMonth()+'.'+ date.getFullYear();
+let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+let newDate = new Intl.DateTimeFormat('en-UK', options).format(date);
 
 // Update User Interface
-//const date = document.getElementById('date');
 const tempDiv = document.getElementById('temp');
-const button = document.getElementById('submit');
+const button = document.getElementById('generate');
 
 const updateUI = postedData => {
     const city = postedData.city;
     const temp = postedData.temp;
-    tempDiv.innerHTML = `Today ${city} is ${temp}°C.`; 
+    const feelings = postedData.feelings;
+    tempDiv.innerHTML = `On ${newDate} in ${city} the temperature is ${temp}°C, and I feel ${feelings}!`; 
 };
 
 // Gather data
 const postGet = () => {
     let city = document.getElementById('city').value;
+    const feelings = document.getElementById('feelings').value;
     getData(baseUrl, city, key)
     .then(data => {
-        console.log(data.main.temp);
-        console.log(data.name);
-        postData('/add', {
-            city: city,
-            temp: data.main.temp
-            }
-        ).then(postback => {
-            console.log("postback", postback);
-            updateUI(postback)})
-    })
+        if(!data.main){
+            tempDiv.innerHTML = 'Please enter a valid zip code.'
+        }else{
+            postData('/add', {
+                city: data.name,
+                temp: data.main.temp,
+                feelings: feelings
+                }
+            ).then(postback => {
+                updateUI(postback)});
+        }
+    });
 };
 
 /**

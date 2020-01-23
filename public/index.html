@@ -7,20 +7,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Weather Journal</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet"> 
 </head>
 
 <body>
-    <h1>Guess the weather!</h1>
-
-        <label for="city">Enter a city : </label><input type="text" id="city" placeholder="London" required><br />
-        <!-- <label for="guess" required>Enter your guess here : </label><input type="text" id="guess" placeholder="7.4°C" required><br /> -->
-        <input type="submit" value="Submit" id="submit">
-
-    <div class="result-container">
-        <div id="cityName">daada</div>
-        <div id="date"></div>
-        <div id="temp"></div>
+    <h1>Weather Journal</h1>
+    <div class="form">
+        <label for="city">Choose a U.S. zip code : </label><input type="text" id="city" placeholder="enter zip code here"
+            required class="no-box"><br />
+        <textarea rows="4" cols="50" id="feelings" placeholder="describe your feelings using adjectives only" class="no-box"></textarea><br />
+        <input type="submit" value="Submit" id="generate" class="button">
+        <div class="result-container">
+            <p>Dear journal,</p>
+            <div id="entryholder">
+                <div id="date"></div>
+                <div id="temp"></div>
+                <div id="content"></div>
+            </div>
+        </div>
     </div>
 </body>
 <script src="app.js"></script>
+
 </html>
