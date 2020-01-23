@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 app.use(express.static('public'));
 
-/* Dependencies */
+/* Dependencies and middelware*/
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -17,30 +17,14 @@ app.use(cors());
 const port = 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`))
 
-/* API endpoint */
+/* Routes endpoint */
 const projectData = {};
 
-/* API key */
-const key = '7888326b26769e661345dc10ca117453';
-
-/* API URL */
-const url = 'api.openweathermap.org';
-
-/* Routes */
-app.get('/all', getData);
-
-function getData (request, response) {
-    response.send(projectData);
-  };
-
+/* Route */
 app.post('/add', add);
-
 function add(req, res) {
-    newEntry = {
-        city: req.body.city,
-        temp: req.body.temp,
-        fav: req.body.fav
-    };
-    projectData.push(newEntry);
+    projectData['city'] = req.body.city,
+    projectData['temp'] = req.body.temp
     res.send(projectData);
+    console.log(projectData)
 };
