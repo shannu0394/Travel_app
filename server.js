@@ -17,10 +17,11 @@ app.listen(port, () => console.log(`Listening on port ${port}`))
 /* Routes endpoint */
 let projectData = {};
 
-/* Route */
+/* Routes */
+app.get('/data', (req, res) => res.send(projectData));
+
 app.post('/add', add);
 function add(req, res) {
-    console.log(res);
     projectData = {...req.body};
     res.send(projectData);
 }
