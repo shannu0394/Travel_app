@@ -49,7 +49,7 @@ const updateUI = postedData => {
 
 // Gather data
 const postGet = () => {
-    let city = document.getElementById('city').value;
+    const city = document.getElementById('city').value;
     const feelings = document.getElementById('feelings').value;
     getData(baseUrl, city, key)
     .then(data => {

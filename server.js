@@ -1,16 +1,13 @@
-//Express to run server and routes
-const express = require('express');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 // Start up an instance of app
+/* Dependencies and middelware*/
 const app = express();
 app.use(express.static('public'));
-
-/* Dependencies and middelware*/
-const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-const cors = require('cors');
 app.use(cors());
 
 /* Local server */
@@ -18,13 +15,12 @@ const port = 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`))
 
 /* Routes endpoint */
-const projectData = {};
+let projectData = {};
 
 /* Route */
 app.post('/add', add);
 function add(req, res) {
-    projectData['city'] = req.body.city,
-    projectData['temp'] = req.body.temp,
-    projectData['feelings'] = req.body.feelings
+    console.log(res);
+    projectData = {...req.body};
     res.send(projectData);
-};
+}

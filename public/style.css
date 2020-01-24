@@ -4,6 +4,7 @@ html, body {
     background-color: cornsilk;
     color: #003300;
     font-family: 'Bangers', cursive;
+    overflow: hidden;
 }
 
 h1{
