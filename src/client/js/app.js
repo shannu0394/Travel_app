@@ -66,12 +66,12 @@ const postGet = () => {
             if (!data.main) {
                 tempDiv.innerHTML = 'Please enter a valid zip code.'
             } else {
-                postData('/add', {
+                postData('http://localhost:3000/add', {
                     city: data.name,
                     temp: data.main.temp,
                     feelings: feelings
                 });
-                getServerData("/data")
+                getServerData('http://localhost:3000/data')
                     .then(storedData => updateUI(storedData));
             }
         });
@@ -80,4 +80,6 @@ const postGet = () => {
 /**
 * Event click button
 **/
-button.addEventListener('click', postGet);
+export const clickEvent = () => {
+    button.addEventListener('click', postGet);
+};

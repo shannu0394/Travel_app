@@ -5,7 +5,7 @@ const cors = require("cors");
 // Start up an instance of app
 /* Dependencies and middelware*/
 const app = express();
-app.use(express.static('public'));
+app.use(express.static('dist'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
@@ -18,6 +18,10 @@ app.listen(port, () => console.log(`Listening on port ${port}`))
 let projectData = {};
 
 /* Routes */
+app.get('/', (req, res) => {
+  res.sendFile('dist/index.html', { root: `${__dirname}/..` });
+});
+
 app.get('/data', (req, res) => res.send(projectData));
 
 app.post('/add', add);
