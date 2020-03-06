@@ -1,5 +1,8 @@
-import { clickEvent } from '../client/js/app';
+import { postGet, button } from '../client/js/app';
 
 import './styles/style.scss';
+import './styles/datepicker.scss'
 
-export { clickEvent };
+export { postGet };
+
+button.addEventListener('click', postGet);
