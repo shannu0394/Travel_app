@@ -1,8 +1,13 @@
-import { postGet, button } from '../client/js/app';
+import { postGeonames} from '../client/js/geonames';
+import { rangepicker } from '../client/js/datePicker'
+
+Object.assign(DateRangePicker.locales, gb);
 
 import './styles/style.scss';
-import './styles/datepicker.scss'
+import 'vanillajs-datepicker/sass/datepicker.scss';
 
-export { postGet };
+export { 
+  postGeonames
+};
 
-button.addEventListener('click', postGet);
+//button.addEventListener('click', postGeonames);
