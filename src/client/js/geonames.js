@@ -1,11 +1,11 @@
 
 // Async GET
 
-const getServerData = async (url) => {
-  const res = await fetch('/data');
-  const storedData = await res.json();
-  return storedData;
-};
+/* const getServerData = async (url) => {
+  const res = await fetch('http://localhost:3000/geoNames');
+  const geoData = await res.json();
+  return geoData;
+}; */
 
 // Async POST
 const postData = async (url = "", dataToPost = {}) => {
@@ -13,7 +13,8 @@ const postData = async (url = "", dataToPost = {}) => {
     method: 'POST',
     credentials: 'same-origin',
     headers: {
-      'Content-type': 'application/json'
+      'Content-type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify(dataToPost)
   });
@@ -26,42 +27,24 @@ const postData = async (url = "", dataToPost = {}) => {
   }
 };
 
-// Find the date
-/* let date = new Date();
-let today = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
-let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-let newDate = new Intl.DateTimeFormat('en-UK', options).format(date); */
+const button = document.getElementById('generate');
 
-// Update User Interface
-/* const button = document.getElementById('generate');
-
-const updateUI = storedData => {
-
-}; */
 
 // Gather data
 const postGeonames = async () => {
   const city = document.getElementById('city').value;
-  await postData('http://localhost:3000/geoNames', {
-    cityname: city
-  })
-  //créer la route /add
-  await postData('http://localhost:3000/add', {
-    longitude: data[0][lng],
-    latitude: data[0][lat],
-    country: data[0][countryName]
+  const startDate = document.getElementById('startDate').value;
+  const endDate = document.getElementById('endDate').value;
+  await postData('http://localhost:3000/cityName', {
+    cityname: city,
+    firstDay: startDate,
+    lastDay: endDate
   });
-  /* getServerData('http://localhost:3000/data')
-    .then(storedData => updateUI(storedData)); */
 };
-
-/**
-* Event click button
-**/
-
-
 
 export {
   postGeonames,
-  //button
+  button
 }
+
+
