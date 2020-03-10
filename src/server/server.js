@@ -20,37 +20,42 @@ app.get('/', (req, res) => {
   res.sendFile('src/index.html', { root: `${__dirname}/..` });
 });
 
-/* GEONAMES API */
-const geoKey = '&maxRows=10&username=ohick';
-const geoUrl = 'http://api.geonames.org/searchJSON?q=';
-
-let cityFromClient = {};
-let apiData = {};
-let cityData = {};
-
-const getGeonamesData = async (geoUrl, city, geoKey) => {
-  const res = await fetch(geoUrl + city + geoKey);
-  const geoData = await res.json();
-  apiData = {...geoData}
-  cityData = {
-    longitude: apiData.geonames[0]['lng'],
-    latitude: apiData.geonames[0]['lat'],
-    country: apiData.geonames[0]['countryName']
-  }
-  console.log(cityData)
-  return cityData;
-};
-
-app.post('/cityName', (req, res) => {
-  cityFromClient = {...req.body}
-  console.log(cityFromClient)
-  res.send(getGeonamesData(geoUrl,cityFromClient.cityname,geoKey));
-}); 
-
 /* DARK SKY API */
 //url/[key]/[latitude],[longitude],[time.getTime()]';
 const skyUrl = 'https://api.darksky.net/forecast/';
 const skyKey = '1e9e4d4528a0b6a9d07e8c1929ed9c59/';
-const units = '&unit=si'
+const units = '?units=si'
 
+const darkSkyAPI = async (skyUrl, skyKey, lat, lng, units) => {
+  const res = await fetch(skyUrl + skyKey + lat + ',' + lng + units);
+  const darSkyData = await res.json();
+  cityData = {...cityData,
+    weatherSummary: darSkyData.currently.summary,
+    temperature: darSkyData.currently.temperature
+  };
+  console.log(cityData);
+};
 
+/* GEONAMES API */
+const geoKey = '&maxRows=10&username=ohick';
+const geoUrl = 'http://api.geonames.org/searchJSON?q=';
+
+let cityData = {};
+
+const geonamesAPI = async (geoUrl, city, geoKey) => {
+  const res = await fetch(geoUrl + city + geoKey);
+  const geoData = await res.json();
+  cityData = {...cityData,
+    longitude: geoData.geonames[0]['lng'],
+    latitude: geoData.geonames[0]['lat'],
+    country: geoData.geonames[0]['countryName']
+  }
+  darkSkyAPI(skyUrl, skyKey, cityData.latitude, cityData.longitude, units);
+};
+
+app.post('/cityName', (req, res) => {
+  cityData = {...req.body}
+  geonamesAPI(geoUrl,cityData.cityname,geoKey);
+});
+
+app.get('/data', (req, res) => res.send(cityData));

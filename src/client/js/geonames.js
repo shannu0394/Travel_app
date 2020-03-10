@@ -1,11 +1,11 @@
 
 // Async GET
-
-/* const getServerData = async (url) => {
-  const res = await fetch('http://localhost:3000/geoNames');
-  const geoData = await res.json();
-  return geoData;
-}; */
+const getServerData = async (url) => {
+  const res = await fetch('http://localhost:3000/data');
+  const cityData = await res.json();
+  console.log(cityData)
+  return cityData;
+};
 
 // Async POST
 const postData = async (url = "", dataToPost = {}) => {
@@ -29,22 +29,19 @@ const postData = async (url = "", dataToPost = {}) => {
 
 const button = document.getElementById('generate');
 
-
 // Gather data
 const postGeonames = async () => {
   const city = document.getElementById('city').value;
   const startDate = document.getElementById('startDate').value;
   const endDate = document.getElementById('endDate').value;
-  await postData('http://localhost:3000/cityName', {
-    cityname: city,
-    firstDay: startDate,
-    lastDay: endDate
-  });
+  postData('http://localhost:3000/cityName', {
+      cityname: city,
+      firstDay: startDate,
+      lastDay: endDate
+    }).then(getServerData('http://localhost:3000/data'))
 };
 
 export {
   postGeonames,
   button
 }
-
-
