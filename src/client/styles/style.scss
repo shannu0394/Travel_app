@@ -1,16 +1,7 @@
-//@import 'vanillajs-datepicker/sass/datepicker';
-
 html, body {
     height: 100%;
     width: 100%;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* background-color: cornsilk;
-    color: #003300;
-    font-family: 'Bangers', cursive;
-    overflow: hidden; */
 }
 
 h1{
@@ -21,24 +12,6 @@ h1{
 
 .form {
 width: 80%;
-}
-
-.result-container {
-    margin-top: 5em;
-}
-
-#entryholder {
-    border: solid;
-    background-color: white;
-    height: 200px;
-    width: 600px;
-    padding: 1em;
-    font-family: "Goudy Bookletter 1911", sans-serif;
-    color: black;
-}
-
-p {
-    text-align: center;
 }
 
 .button{
@@ -54,9 +27,22 @@ p {
     color: #003300;
 }
 
-.no-box{
-    border: none;
-    margin-top: .5em;
-    padding: 1em;
-    font-family: "Goudy Bookletter 1911", sans-serif;
+.cards-holder {
+  display: flex;
+  justify-content: center;
+}
+
+.card{
+  border: solid;
+  display: flex;
+}
+
+.image{
+  width: 30%;
+  height: auto;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
