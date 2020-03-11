@@ -1,12 +1,3 @@
-
-// Async GET
-const getServerData = async (url) => {
-  const res = await fetch('http://localhost:3000/data');
-  const cityData = await res.json();
-  console.log(cityData)
-  return cityData;
-};
-
 // Async POST
 const postData = async (url = "", dataToPost = {}) => {
   let res = await fetch(url, {
@@ -30,18 +21,19 @@ const postData = async (url = "", dataToPost = {}) => {
 const button = document.getElementById('generate');
 
 // Gather data
-const postGeonames = async () => {
-  const city = document.getElementById('city').value;
+const newTrip = async () => {
+  let city = document.getElementById('city').value;
   const startDate = document.getElementById('startDate').value;
   const endDate = document.getElementById('endDate').value;
-  postData('http://localhost:3000/cityName', {
-      cityname: city,
-      firstDay: startDate,
-      lastDay: endDate
-    }).then(getServerData('http://localhost:3000/data'))
+  const data = await postData('http://localhost:3000/add', {
+    cityname: city,
+    firstDay: startDate,
+    lastDay: endDate,
+  });
+    console.log("data", data);
 };
 
 export {
-  postGeonames,
+  newTrip,
   button
 }

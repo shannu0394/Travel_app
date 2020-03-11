@@ -10,25 +10,17 @@
 </head>
 
 <body>
-    <h1>Weather Journal</h1>
-    <div class="form">
-        <label for="city">Choose a U.S. zip code : </label><input type="text" id="city" placeholder="enter  code here"
-            required class="no-box"><br />
-            <div id="datePicker">
-              <input type="text" name="start" id="startDate">
-              <span>to</span>
-              <input type="text" name="end" id="endDate">  
-            </div>
-        <textarea rows="4" cols="50" id="feelings" placeholder="describe your feelings" class="no-box"></textarea><br />
-        <input type="submit" value="Submit" id="generate" class="button">
-        <div class="result-container">
-            <p>Dear journal,</p>
-            <div id="entryholder">
-                <div id="date"></div>
-                <div id="temp"></div>
-                <div id="content"></div>
-            </div>
-        </div>
-    </div>
+  <h1>Travel Journal</h1>
+  <div class="form">
+    <label for="city">Enter your future travel destination :</label><input type="text" id="city" placeholder="example: Rome"
+          required><br />
+          <div id="datePicker">
+            <label for="startDate">Departure : from</label>
+            <input type="text" name="start" id="startDate">
+            <span>to</span>
+            <input type="text" name="end" id="endDate">  
+          </div>
+      <input type="submit" value="Submit" id="generate" class="button">
+  </div>
 </body>
 </html>

@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -20,10 +22,30 @@ app.get('/', (req, res) => {
   res.sendFile('src/index.html', { root: `${__dirname}/..` });
 });
 
+/* PIXABAY API */
+const pixUrl = 'https://pixabay.com/api/';
+const pixKey = process.env.pixKey;
+
+const pixabayAPI = async (pixUrl, pixKey, city) => {
+  const res = await fetch(pixUrl + pixKey + city);
+  const pixData = await res.json();
+  if (pixData.totalHits == 0){
+    cityData = {...cityData,
+      img: 'https://pixabay.com/get/55e4d54b4350a414f6da8c7dda79367b1039dfe453596c48702778dd9649c55eb1_640.jpg'
+    } 
+  } else {
+    cityData = {...cityData,
+    img: pixData.hits[0]['webformatURL']
+  }
+  }
+  console.log(cityData);
+  return cityData;
+};
+
+
 /* DARK SKY API */
-//url/[key]/[latitude],[longitude],[time.getTime()]';
 const skyUrl = 'https://api.darksky.net/forecast/';
-const skyKey = '1e9e4d4528a0b6a9d07e8c1929ed9c59/';
+const skyKey = process.env.skyKey;
 const units = '?units=si'
 
 const darkSkyAPI = async (skyUrl, skyKey, lat, lng, units) => {
@@ -33,11 +55,11 @@ const darkSkyAPI = async (skyUrl, skyKey, lat, lng, units) => {
     weatherSummary: darSkyData.currently.summary,
     temperature: darSkyData.currently.temperature
   };
-  console.log(cityData);
+  return cityData;
 };
 
 /* GEONAMES API */
-const geoKey = '&maxRows=10&username=ohick';
+const geoKey = process.env.geoKey;
 const geoUrl = 'http://api.geonames.org/searchJSON?q=';
 
 let cityData = {};
@@ -50,12 +72,15 @@ const geonamesAPI = async (geoUrl, city, geoKey) => {
     latitude: geoData.geonames[0]['lat'],
     country: geoData.geonames[0]['countryName']
   }
-  darkSkyAPI(skyUrl, skyKey, cityData.latitude, cityData.longitude, units);
-};
+  if(cityData.cityname === cityData.country){
+    delete cityData.cityname
+  }
+}; 
 
-app.post('/cityName', (req, res) => {
+app.post('/add', async (req, res) => {
   cityData = {...req.body}
-  geonamesAPI(geoUrl,cityData.cityname,geoKey);
+  await geonamesAPI(geoUrl,cityData.cityname,geoKey);
+  await darkSkyAPI(skyUrl, skyKey, cityData.latitude, cityData.longitude, units);
+  await pixabayAPI(pixUrl, pixKey, cityData.cityname);
+  res.send(cityData)
 });
-
-app.get('/data', (req, res) => res.send(cityData));

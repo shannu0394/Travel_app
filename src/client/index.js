@@ -1,11 +1,11 @@
-import { postGeonames, button} from '../client/js/geonames';
+import { newTrip, button} from './js/newtrip';
 import { rangepicker } from '../client/js/datePicker'
 
 import './styles/style.scss';
 import 'vanillajs-datepicker/sass/datepicker.scss';
 
 export { 
-  postGeonames
+  newTrip
 };
 
-button.addEventListener('click', postGeonames);
+button.addEventListener('click', newTrip);
