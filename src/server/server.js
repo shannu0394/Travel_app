@@ -29,17 +29,15 @@ const pixKey = process.env.pixKey;
 const pixabayAPI = async (pixUrl, pixKey, city) => {
   const res = await fetch(pixUrl + pixKey + city);
   const pixData = await res.json();
+
+  let response = {};
+
   if (pixData.totalHits == 0){
-    cityData = {...cityData,
-      img: 'https://pixabay.com/get/55e4d54b4350a414f6da8c7dda79367b1039dfe453596c48702778dd9649c55eb1_640.jpg'
-    } 
+    response['img'] = 'https://pixabay.com/get/55e4d54b4350a414f6da8c7dda79367b1039dfe453596c48702778dd9649c55eb1_640.jpg';
   } else {
-    cityData = {...cityData,
-    img: pixData.hits[0]['webformatURL']
+    response['img'] = pixData.hits[0]['webformatURL'] ;
   }
-  }
-  console.log(cityData);
-  return cityData;
+  return response;
 };
 
 
@@ -51,11 +49,11 @@ const units = '?units=si'
 const darkSkyAPI = async (skyUrl, skyKey, lat, lng, units) => {
   const res = await fetch(skyUrl + skyKey + lat + ',' + lng + units);
   const darSkyData = await res.json();
-  cityData = {...cityData,
+  
+  return {
     weatherSummary: darSkyData.currently.summary,
     temperature: darSkyData.currently.temperature
   };
-  return cityData;
 };
 
 /* GEONAMES API */
@@ -67,20 +65,25 @@ let cityData = {};
 const geonamesAPI = async (geoUrl, city, geoKey) => {
   const res = await fetch(geoUrl + city + geoKey);
   const geoData = await res.json();
-  cityData = {...cityData,
+  
+  return {
     longitude: geoData.geonames[0]['lng'],
     latitude: geoData.geonames[0]['lat'],
-    country: geoData.geonames[0]['countryName']
-  }
-  if(cityData.cityname === cityData.country){
-    delete cityData.cityname
-  }
+    country: geoData.geonames[0]['countryName'],
+    city: city === geoData.geonames[0]['countryName'] ? null : city
+  };
 }; 
 
 app.post('/add', async (req, res) => {
-  cityData = {...req.body}
-  await geonamesAPI(geoUrl,cityData.cityname,geoKey);
-  await darkSkyAPI(skyUrl, skyKey, cityData.latitude, cityData.longitude, units);
-  await pixabayAPI(pixUrl, pixKey, cityData.cityname);
-  res.send(cityData)
+
+  const {city } = req.body;
+
+  const geonameResponse = await geonamesAPI(geoUrl,city,geoKey);
+
+  const {latitude, longitude} = geonameResponse;
+  const darkSkyResponse = await darkSkyAPI(skyUrl, skyKey, latitude, longitude, units);
+
+  const pixabayResponse = await pixabayAPI(pixUrl, pixKey, city);
+
+  res.send({...req.body, ...geonameResponse, ...darkSkyResponse, ...pixabayResponse});
 });

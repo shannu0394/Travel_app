@@ -5,6 +5,8 @@ Project 3 - Front-end nanodegree Udacity
 
 DatePicker created by mymth https://github.com/mymth/vanillajs-datepicker 
 
+https://github.com/Pikaday/Pikaday
+
 ### Prerequisites
 
 This project requires the following packages:

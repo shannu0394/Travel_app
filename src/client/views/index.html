@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Weather Journal</title>
+  <title>Travel Journal</title>
   <link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet">
 </head>
 
@@ -14,25 +14,10 @@
   <div class="form">
     <label for="city">Enter your travel destination : </label><input type="text" id="city" placeholder="example: Rome"
       required><br />
-    <div id="datePicker">
-      <label for="startDate">Departure : from</label>
-      <input type="text" name="start" id="startDate">
-      <span>to</span>
-      <input type="text" name="end" id="endDate">
-    </div>
+    <input type="text" id="datepicker">
     <input type="submit" value="Submit" id="generate" class="button">
   </div>
-  <div class="cards-holder">
-    <div class="card">
-      <img src="https://cdn.pixabay.com/photo/2015/09/28/21/32/the-palm-962785_960_720.jpg" alt="Louvre" class="image">
-      <div class="results">
-        <h2 id="cityName">Paris</h2>
-        <div>Departure dates : <span id="dates"></span></div>
-        <div>Temperature : <span id="temp"></span></div>
-      </div>
-    </div>
-    <div class="buttons"><button>Delete</button>
-    <button>Edit</button></div>
+  <div class="cards-holder hidden" id="cardParent">
   </div>
 </body>
 

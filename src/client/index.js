@@ -1,11 +1,11 @@
 import { newTrip, button} from './js/newtrip';
-import { rangepicker } from '../client/js/datePicker'
+import { moment, picker } from './js/datePicker';
 
+import 'pikaday/scss/pikaday.scss';
 import './styles/style.scss';
-import 'vanillajs-datepicker/sass/datepicker.scss';
 
 export { 
-  newTrip
+  newTrip,
 };
 
 button.addEventListener('click', newTrip);

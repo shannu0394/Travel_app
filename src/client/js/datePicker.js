@@ -1,10 +1,18 @@
-import DateRangePicker from 'vanillajs-datepicker/js/DateRangePicker.js';
+import * as Pikaday from 'pikaday/pikaday.js';
 
-const elem = document.getElementById('datePicker');
-const rangepicker = new DateRangePicker(elem, {
+const moment = require('moment');
+moment().format();
+
+const picker = new Pikaday({
+  field: document.getElementById('datepicker'),
+  format: 'D MMM YYYY',
+  onSelect: function () {
+    const departure = this.getMoment().format('Do MMMM YYYY');
+    return departure;
+  },
 });
 
-
 export {
-  rangepicker,
+  picker,
+  moment,
 }
