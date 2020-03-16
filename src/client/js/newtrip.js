@@ -1,10 +1,8 @@
 import {picker} from './pikaday.js';
-
 import defaultImage from '../styles/location.png';
-
-/* require fetchWrapper module written in commonJS */
-const fetchWrapper = require('fetchWrapper/fetchWrapper');
-const FetchOptions = require('fetchWrapper/FetchOptions'); 
+import fetchWrapper from 'fetchWrapper/src/fetchWrapper_import';
+import FetchOptions from 'fetchWrapper/src/FetchOptions_import';
+import moment from 'moment';
 
 const button = document.getElementById('generate');
 const cardParent = document.getElementById('cardParent');
@@ -14,20 +12,17 @@ const imageCheck = (img) => {
   return img ?? defaultImage;
  };
 
- /* Countdown for departure */ 
- //VOIR SUR MOMENT  https://momentjs.com/docs/#/displaying/tonow/
-const countdown = (picker) => {
-  const today = new Date();
-  const BigDay = new Date(picker);
-  const msPerDay = 24 * 60 * 60 * 1000;
-  const timeLeft = (BigDay.getTime() - today.getTime());
-  const e_daysLeft = timeLeft / msPerDay;
-  const daysLeft = Math.ceil(e_daysLeft);
-  return daysLeft
-};
-
 /*/ DOM Create the card element */
+//moment('18 Mar 2020', 'DD MMM YYYY', 'en').toNow();
 const createTravelCard = (data) => {
+  let todayNoHours = moment(moment().format('DD MMM YYYY'), 'DD MMM YYYY', 'en');
+  let daysTo = todayNoHours.diff(moment(picker.toString(), 'DD MMM YYYY', 'en'), 'days');
+  let countdownText = (daysTo) => {
+    if (daysTo < 0) {
+      return `${Math.abs(daysTo)} days left before your departure to ${data.city}!`
+    }
+    return `${daysTo} days since your departure to ${data.city}!`
+  };
   let cardHolder = document.createDocumentFragment();
   const card = document.createElement('div');
   card.className = "card";
@@ -36,7 +31,7 @@ const createTravelCard = (data) => {
     <div class="results">
       <h2>${data.city}, ${data.country}</h2>
       <div>Departure date : ${picker}</div>
-      <div>${countdown(picker)} days left before your departure to ${data.city}!</div>
+      <div>${countdownText(daysTo)}</div>
       <div>Weather : ${data.temperature}°C, ${data.weatherSummary}</div>
     </div>
     <button class="delete">Delete</button>`;
@@ -49,12 +44,12 @@ const newTrip = async () => {
   let city = document.getElementById('city').value;
   const options = new FetchOptions({city: city}, 'POST', {
     'Content-type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*'
   });
+  console.log(city)
   const data = await fetchWrapper('http://localhost:3000/add', options);
   console.log(data);
   cardParent.appendChild(createTravelCard(data));
-  cardParent.classList.remove('hidden');
 };
 
 export {

@@ -11,15 +11,21 @@
 
 <body id="body">
   <h1>Travel Journal</h1>
-  <div class="form">
-    <label for="city">Enter your travel destination : </label><input type="text" id="city" placeholder="example: Rome"
-      required><br />
-    <input type="text" id="datepicker">
-    <input type="submit" value="Submit" id="generate" class="button">
+  <div class="wrapper">
+    <div class="form">
+      <div class="input-field">
+        <h2>Log your next travel</h2>
+        <!--<label for="city">Enter your travel destination : </label>!-->
+        <input type="text" id="city" class="input" placeholder="Destination" required><br />
+        <!--<label for="datepicker">Departure date : </label>!-->
+        <input type="text" id="datepicker" class="input" placeholder="Departure date">
+        <input type="submit" value="Submit" id="generate" class="input button">
+      </div>
+      
+    </div>
   </div>
-  <div class="cards-holder hidden" id="cardParent">
-  </div>
-  <img src="../styles/location.png" alt="Picture of the destination" class="image" id="image">
+  <div class="cards-holder" id="cardParent">
+      </div>
 </body>
 
 </html>

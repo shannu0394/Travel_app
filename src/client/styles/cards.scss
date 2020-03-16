@@ -1,0 +1,25 @@
+.cards-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card{
+  display: flex;
+  flex-direction: column;
+  
+  button {
+    align-self: flex-end;
+  }
+}
+
+.image{
+  width: 30%;
+  height: auto;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}

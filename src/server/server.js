@@ -3,8 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require('dotenv');
-const fetchWrapper = require('fetchWrapper/fetchWrapper');
-const FetchOptions = require('fetchWrapper/FetchOptions');
+const fetchWrapper = require('fetchWrapper/src/fetchWrapper_require');
+const FetchOptions = require('fetchWrapper/src/FetchOptions');
 dotenv.config();
 
 /* Dependencies and middelware */
@@ -67,6 +67,8 @@ app.get('/', (req, res) => {
 app.post('/add', async (req, res) => {
 
   const { city } = req.body;
+  console.log("city")
+  console.log(city)
 
   const geonameResponse = await geonamesAPI(city);
 

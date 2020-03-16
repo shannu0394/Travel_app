@@ -1,59 +1,100 @@
+$pd-title-color: rgb(64, 131, 157);
+$pd-title-bg: rgba(255,255,255,0);
+$pd-picker-bg: rgba(255,255,255,.8);
+$pd-day-bg: rgba(255,255,255,.8);
+$pd-day-hover-bg: rgba(64, 131, 157, .5);
+$pd-day-today-color: rgb(64, 131, 157);
+$pd-day-selected-bg: rgb(64, 131, 157);
+$pd-day-selected-shadow: transparent;
+
+@import 'pikaday/scss/pikaday.scss';
+
 html, body {
     height: 100%;
     width: 100%;
     margin: 0;
+    background: linear-gradient(0deg, rgba(64, 131, 157,1) 0%, rgb(77, 52, 126) 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
 }
 
 h1{
-    text-align: center;
     margin-bottom: 2em;
     font-size: 3em;
 }
 
+.wrapper {
+  width: 100%;
+  padding: 0 20px;
+  line-height:  1.6; 
+}
+
 .form {
-width: 80%;
+  max-width: 550px;
+  margin: 0 auto;
+  background: rgba(255,255,255,.1);
+  padding: 30px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 20px rgba(0,0,0,.1)
+}
+
+.input-field {
+  display: flex; 
+  flex-direction: column;
+  margin-right: 4%;
+
+   h2 {
+     margin-top: 0;
+     text-align: center;
+   }
+}
+
+.input {
+  //width: 48%;
+  margin: 10px 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid #c5ecfd;
+  padding: 10px;
+  color: white;
+  //width: 100%;
+}
+
+::-webkit-input-placeholder{
+  color:#c5ecfd;
 }
 
 .button{
     border: none;
-    margin-top: .5em;
+    margin: .5em 15em 0 15em;
     padding: .5em;
-    background-color: #003300;
-    color: cornsilk;
-}
+    background: rgba(197, 236, 253, .5);
+    padding: 15px; 
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
 
-.button:hover{
-    background-color: #66ff66;
-    color: #003300;
-}
 
-.cards-holder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.card{
-  border: solid;
-  display: flex;
-  flex-direction: column;
-  
-  button {
-    align-self: flex-end;
+    &:hover{
+      background-color: rgba(197, 236, 253, 1);
+      color: #333;
+      /* animation-duration: 0.5s;
+      animation-name: expand;
+      animation-fill-mode: forwards;   */
+      
   }
 }
 
-.image{
-  width: 30%;
-  height: auto;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-
-.hidden {
-    display: none;
+@keyframes expand {
+  0% {
+    margin: .5em 15em 0 15em;
+  }
+  100% {
+    margin: .5em 0 0 0;
+  }
 }
