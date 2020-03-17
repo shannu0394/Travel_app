@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require('dotenv');
-const fetchWrapper = require('fetchWrapper/src/fetchWrapper_require');
+const fetchWrapper = require('fetchWrapper/src/fetchWrapper');
 const FetchOptions = require('fetchWrapper/src/FetchOptions');
 dotenv.config();
 
@@ -35,10 +35,12 @@ const darkSkyAPI = async (lat, lng) => {
     `https://api.darksky.net/forecast/${process.env.skyKey}/${lat},${lng}`,
     new FetchOptions({units: 'si'})
   );
+  console.log(response)
   
   return {
     weatherSummary: response.currently.summary,
-    temperature: response.currently.temperature
+    temperature: response.currently.temperature,
+    icon: response.currently.icon
   };
 };
 
@@ -66,9 +68,7 @@ app.get('/', (req, res) => {
 /* POST Route */
 app.post('/add', async (req, res) => {
 
-  const { city } = req.body;
-  console.log("city")
-  console.log(city)
+  const city = req.body.city;
 
   const geonameResponse = await geonamesAPI(city);
 
@@ -76,8 +76,6 @@ app.post('/add', async (req, res) => {
   const darkSkyResponse = await darkSkyAPI(latitude, longitude);
 
   const pixabayResponse = await pixabayAPI(city);
-
-  console.log(pixabayResponse, city);
 
   res.send({...req.body,
     ...geonameResponse,

@@ -1,7 +1,7 @@
 import {picker} from './pikaday.js';
 import defaultImage from '../styles/location.png';
-import fetchWrapper from 'fetchWrapper/src/fetchWrapper_import';
-import FetchOptions from 'fetchWrapper/src/FetchOptions_import';
+import fetchWrapper from 'fetchWrapper/src/fetchWrapper';
+import FetchOptions from 'fetchWrapper/src/FetchOptions';
 import moment from 'moment';
 
 const button = document.getElementById('generate');
@@ -29,10 +29,10 @@ const createTravelCard = (data) => {
   card.innerHTML = `
     <img src="${imageCheck(data.img)}" alt="Picture of the destination" class="image" id="image">
     <div class="results">
-      <h2>${data.city}, ${data.country}</h2>
-      <div>Departure date : ${picker}</div>
-      <div>${countdownText(daysTo)}</div>
-      <div>Weather : ${data.temperature}°C, ${data.weatherSummary}</div>
+      <h2>${data.city}, ${data.country}</p>
+      <p>Departure date : ${picker}</p>
+      <p>${countdownText(daysTo)}</p>
+      <p>Weather : ${data.temperature}°C, ${data.weatherSummary}</p>
     </div>
     <button class="delete">Delete</button>`;
   cardHolder.appendChild(card);
@@ -41,9 +41,10 @@ const createTravelCard = (data) => {
 
 /* Post client data to server, get API datas, update the UI */
 const newTrip = async () => {
-  let city = document.getElementById('city').value;
+  const city = document.getElementById('city').value;
+  
   const options = new FetchOptions({city: city}, 'POST', {
-    'Content-type': 'application/json',
+    'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
   });
   console.log(city)
