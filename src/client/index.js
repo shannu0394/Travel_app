@@ -1,13 +1,11 @@
 import { newTrip, button} from './js/newtrip';
 import { checkIfDeleteButton} from './js/deletetrip'
 
-
 import './styles/style.scss';
 import './styles/cards.scss';
-//import 'pikaday/scss/pikaday.scss';
 
 export { 
-  newTrip
+  newTrip,
 };
 
 button.addEventListener('click', newTrip);

@@ -1,4 +1,5 @@
 import * as Pikaday from 'pikaday/pikaday.js';
+import {FORMAT} from './datepickerConfig';
 
 import moment from 'moment';
 moment().format();
@@ -7,22 +8,12 @@ moment().format();
 /* Date picker */
 const picker = new Pikaday({
   field: document.getElementById('datepicker'),
-  format: 'D MMM YYYY',
+  format: FORMAT,
   onSelect: function () {
-    const departure = this.getMoment().format('YYYY, M, D');
+    const departure = this.getMoment().format(FORMAT);
     console.log(departure)
     return departure
-  },
+  }
 });
-
-/* const pickerDown = new Pikaday({
-  field: document.getElementById('datepicker'),
-  format: 'YYYY, M, D',
-  onSelect: function () {
-    const departure = this.getMoment().format('YYYY, M, D');
-    console.log(departure)
-    return departure
-  },
-}); */
 
 export { picker }

@@ -6,26 +6,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Travel Journal</title>
-  <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+
 </head>
 
 <body id="body">
   <h1>Travel Journal</h1>
-  <div class="wrapper">
-    <div class="form">
-      <h2>Log your next travel</h2>
-      <div class="input-field">
-        <!-- <label for="city">Destination </label> -->
-        <input type="text" id="city" class="input" required><br />
-        <!-- <label for="datepicker">Departure date</label> -->
+  <form class="form">
+    <h2>Log your next travel</h2>
+    <div class="input-field">
+      <div>
         <input type="text" id="datepicker" class="input" required>
-        <input type="submit" value="Submit" id="generate" class="input button">
+        <label for="datepicker">Departure date</label>
       </div>
-      
+      <div>
+        <input type="text" id="city" class="input" required>
+        <label for="city">Destination </label>
+      </div>
+
+      <input type="submit" value="Submit" id="generate" class="input button">
+    </div>
+  </form>
+  <div class="cards-holder" id="cardParent">
+    <div class="card">
+      <div class="card-top">
+        <button class="delete"><span class="fas fa-times"></span></button>
+        <img src="../styles/location.png" alt="Picture of the destination" class="image" id="image">
+        <div class="days">9 days left</div>
+      </div>
+      <div class="place">
+        <h2 class="city-name">London</h2>
+        <h3 class="country-name">United Kingdom</h3>
+      </div>
+      <div>
+        <div><span class="far fa-calendar-alt"></span> 20 march 2020</div>
+        <div class="temp"><span class="fas fa-thermometer-half"></span> 11°C</div>
+        <div class="rain"><span class="fas fa-cloud-showers-heavy"></span></div>
+      </div>
     </div>
   </div>
-  <div class="cards-holder" id="cardParent">
-      </div>
+
+  <!-- <div class="snow"><span class="far fa-snowflake"></span></div>
+      <div class="wind"><span class="fas fa-wind"></span></div>
+      <div class="smog"><span class="fas fa-smog"></span></div>
+      <div class="cloud"><span class="fas fa-cloud"></span></div>
+      <div class="partly-cloud"><span class="fas fa-cloud-sun"></span></div>
+      <div class="sleet"><span class="fas fa-cloud-rain">sleet</span></div>
+      <div class="sun"><span class="fas fa-sun"></span></div> -->
+
 </body>
+<script src="https://kit.fontawesome.com/84940dc671.js" crossorigin="anonymous"></script>
 
 </html>

@@ -3,8 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require('dotenv');
-const fetchWrapper = require('fetchWrapper/src/fetchWrapper');
-const FetchOptions = require('fetchWrapper/src/FetchOptions');
+const fetchWrapper = require('fetchWrapper');
+const FetchOptions = require('fetchWrapper/FetchOptions');
 dotenv.config();
 
 /* Dependencies and middelware */
@@ -35,7 +35,6 @@ const darkSkyAPI = async (lat, lng) => {
     `https://api.darksky.net/forecast/${process.env.skyKey}/${lat},${lng}`,
     new FetchOptions({units: 'si'})
   );
-  console.log(response)
   
   return {
     weatherSummary: response.currently.summary,

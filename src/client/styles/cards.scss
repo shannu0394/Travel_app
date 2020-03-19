@@ -1,29 +1,108 @@
+$bg-gradient: linear-gradient(.25turn, rgb(193, 20, 50) 0%, rgb(44, 11, 54) 100%);
+$text-color: rgb(194, 23, 52);
+
 .cards-holder {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  color: black;
+  flex-wrap: wrap;
 }
 
 .card{
   display: flex;
   flex-direction: column;
-  
-  button {
-    align-self: flex-end;
+  align-items: flex-start;
+  width: 30%;
+  position: relative;
+  margin: 80px 20px 10px 20px;
+}
+
+.card-top {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 0;
+  width: 195px;
+  height: 195px;
+
+  .image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    object-fit: cover;
+  }
+
+  .days {
+    position: absolute;
+    text-align: center;
+    background: $bg-gradient;
+    color: white;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(30%, -30%);
+    background: $bg-gradient;
+    border: 0;
+    color: white;
+    height: 31px;
+    width: 31px;
   }
 }
 
-.image{
-  width: 30%;
-  height: auto;
-}
+.place {
+  border-bottom: 2px solid $text-color;
+  color: $text-color;
 
-.buttons {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  h3 {
+    opacity: .5;
+  }
 }
 
 p {
   color: black;
 }
+
+.fa-cloud-showers-heavy {
+  color: #15AABF;
+}
+
+.sun {
+  color: #ff9900;
+}
+
+.snow {
+  color: #33ffff;
+}
+
+.wind {
+  color: #4d4dff;
+}
+
+.smog {
+  color: #666699;
+}
+
+.cloud {
+  color: #334d4d;
+}
+
+.sleet {
+  color: #00004d;
+}
+
+.fa-thermometer-half {
+  color: rgb(251, 78, 80);
+}
+
+.fa-calendar-alt {
+  color: #262626;
+}
+
