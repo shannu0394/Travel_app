@@ -39,7 +39,7 @@ const darkSkyAPI = async (lat, lng) => {
   return {
     weatherSummary: response.currently.summary,
     temperature: response.currently.temperature,
-    icon: response.currently.icon
+    icon: response.currently.icon,
   };
 };
 
@@ -66,7 +66,7 @@ app.get('/', (req, res) => {
 
 /* POST Route */
 app.post('/add', async (req, res) => {
-
+  console.log(req.body);
   const city = req.body.city;
 
   const geonameResponse = await geonamesAPI(city);

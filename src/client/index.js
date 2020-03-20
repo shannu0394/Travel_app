@@ -1,7 +1,7 @@
 import { newTrip, button} from './js/newtrip';
 import { checkIfDeleteButton} from './js/deletetrip'
 
-import './styles/style.scss';
+import './styles/form.scss';
 import './styles/cards.scss';
 
 export { 

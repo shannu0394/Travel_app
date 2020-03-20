@@ -13,15 +13,31 @@ const imageCheck = (img) => {
   return img ?? defaultImage;
  };
 
- const mapWeatherIcon = () => {
-  clear-day,  
-  rain, 
-  snow, 
-  sleet, 
-  wind, 
-  fog, 
-  cloudy, 
-  partly-cloudy-day
+ const cityCheck = (city) => {
+  return city ?? "Roadtrip";
+ }
+
+ const mapWeatherIcon = (expr) => {
+  switch(expr) {
+    case "clear-day" :
+    case "clear-night" :
+      return 'sun';
+    case "rain" :
+      return "cloud-showers-heavy";
+    case "snow" :
+      return "snowflake";
+    case "wind" :
+      return "wind";
+    case "fog" :
+      return "smog";
+    case "cloudy" :
+      return "cloud";
+    case "partly-cloudy-day" :
+    case "partly-cloudy-night" :
+      return "cloud-sun";
+    case "sleet" :
+      return "cloud-rain";
+  } 
  }
 
 /*/ DOM Create the card element */
@@ -39,20 +55,25 @@ const createTravelCard = (data) => {
   };
   let cardHolder = document.createDocumentFragment();
   const card = document.createElement('div');
+  const icon = mapWeatherIcon(data.icon);
   card.className = "card";
   card.innerHTML = `
   <div class="card-top">
     <img src="${imageCheck(data.img)}" alt="Picture of the destination" class="image" id="image">
-    <button class="delete">De</button>
+    <button class="delete"><span class="fas fa-times"></span></button>
     <div class="days">${countdownText(daysTo)}</div>
   </div>
-    <div class="results">
-      <h2 class="city-name">${data.city}</h2>
+  <div class="card-bottom">
+    <div class="place">
+      <h2 class="city-name">${cityCheck(data.city)}</h2>
       <h3 class="country-name">${data.country}</h3>
-      <div><span class="far fa-calendar-alt"></span> ${picker.toString('D/MM')}</div>
+    </div>
+    <div class="infos">
+      <div class="calendar"><span class="far fa-calendar-alt"></span> ${picker.toString('D/MM')}</div>
       <div class="temp"><span class="fas fa-thermometer-half"></span> ${data.temperature}°C</div>
-      <div class="rain"><span class="fas fa-cloud-showers-heavy"></span>${data.weatherSummary}</div>
-    </div>`;
+      <div class="${icon}"><span class="fas fa-${icon}"></span></div>
+    </div>
+  </div>`;
   cardHolder.appendChild(card);
   return cardHolder;
 };
@@ -66,7 +87,7 @@ const newTrip = async (e) => {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
   });
-  console.log(city)
+
   const data = await fetchWrapper('http://localhost:3000/add', options);
   console.log(data);
   cardParent.appendChild(createTravelCard(data));

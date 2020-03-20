@@ -1,1 +1,1 @@
-export const FORMAT = "Do MMM YYYY";
+export const FORMAT = "Do MMMM YYYY";

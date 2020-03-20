@@ -1,20 +1,22 @@
 $bg-gradient: linear-gradient(.25turn, rgb(193, 20, 50) 0%, rgb(44, 11, 54) 100%);
 $text-color: rgb(194, 23, 52);
+$mobile: 760px;
 
 .cards-holder {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   color: black;
   flex-wrap: wrap;
-}
+  margin: 70px 0 0 30px;
 
-.card{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 30%;
-  position: relative;
-  margin: 80px 20px 10px 20px;
+  .card{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 195px;
+    position: relative;
+    margin: 30px 20px 10px 20px;
+  }
 }
 
 .card-top {
@@ -54,23 +56,45 @@ $text-color: rgb(194, 23, 52);
     color: white;
     height: 31px;
     width: 31px;
+    cursor: pointer;
+    box-shadow: 5px 5px rgb(44, 11, 54);
+  
+    .fas {
+      pointer-events: none;
+      position: relative;
+    }
   }
 }
 
-.place {
-  border-bottom: 2px solid $text-color;
-  color: $text-color;
+.card-bottom {
+  width: 100%;
+  margin-top: 10px;
 
-  h3 {
-    opacity: .5;
+  .place {
+    border-bottom: 2px solid $text-color;
+    color: $text-color;
+    width: 100%;
+  
+    h2, h3 {
+      margin: 0;
+      font-weight: 400; 
+    }
+  
+    h3 {
+      opacity: .5;
+      margin-bottom: 10px;
+    }
+  }
+
+  .infos {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
   }
 }
 
-p {
-  color: black;
-}
-
-.fa-cloud-showers-heavy {
+//Weather icons colouring
+.cloud-showers-heavy {
   color: #15AABF;
 }
 
@@ -78,7 +102,7 @@ p {
   color: #ff9900;
 }
 
-.snow {
+.snowflake {
   color: #33ffff;
 }
 
@@ -94,7 +118,7 @@ p {
   color: #334d4d;
 }
 
-.sleet {
+.cloud-rain {
   color: #00004d;
 }
 
@@ -106,3 +130,15 @@ p {
   color: #262626;
 }
 
+@media (max-width: $mobile) {
+  .cards-holder {
+    margin: 0;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .card{
+    width: 100%;
+    margin: 0;
+  }
+}
