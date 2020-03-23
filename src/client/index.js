@@ -1,5 +1,5 @@
 import { newTrip, button} from './js/newtrip';
-import { checkIfDeleteButton} from './js/deletetrip'
+import checkIfDeleteButton from './js/deletetrip'
 
 import './styles/form.scss';
 import './styles/cards.scss';

@@ -1,24 +1,21 @@
-# Weather_app
-Project 3 - Front-end nanodegree Udacity
+# Weather App
+Capstone Project - Front-end nanodegree Udacity
 
 ## Description
+This project features a travel app to log your future (or past) travels.
 
-DatePicker created by mymth https://github.com/mymth/vanillajs-datepicker 
 
 https://github.com/Pikaday/Pikaday
 
-### Prerequisites
-
-This project requires the following packages:
-
- * express 
- * body-parser
- * cors
-
 ### Installing
 
-To install, enter the command npm install package-name
+Use the package manager npm to install the project.
+```
+npm install
+```
 
 ### Running
 
-To run the server, enter the command npm start
+Run the server.
+```npm start
+```

@@ -1,72 +1,38 @@
-/* modules */
+/* Node modules */
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require('dotenv');
-const fetchWrapper = require('fetchWrapper');
-const FetchOptions = require('fetchWrapper/FetchOptions');
-dotenv.config();
+
+/* Project modules */
+const geonamesAPI = require('./geonamesAPI');
+const darkSkyAPI = require('./darkskyAPI');
+const pixabayAPI = require('./pixabayAPI');
 
 /* Dependencies and middelware */
+dotenv.config();
 const app = express();
-app.use(express.static('src'));
+app.use(express.static('dist'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
 /* Local server */
 const port = 3000;
-app.listen(port, () => console.log(`Listening on port ${port}`))
-
-/* PIXABAY API */
-const pixabayAPI = async (city) => {
- const response = await fetchWrapper('https://pixabay.com/api/', new FetchOptions({
-    key: process.env.pixKey,
-    q : city, 
-    per_page : 3
-  }));
-
-  return response.totalHits === 0 ? null : response.hits[0]['webformatURL'] ;
-};
-
-/* DARK SKY API */
-const darkSkyAPI = async (lat, lng) => {
-  const response = await fetchWrapper(
-    `https://api.darksky.net/forecast/${process.env.skyKey}/${lat},${lng}`,
-    new FetchOptions({units: 'si'})
-  );
-  
-  return {
-    weatherSummary: response.currently.summary,
-    temperature: response.currently.temperature,
-    icon: response.currently.icon,
-  };
-};
-
-/* GEONAMES API */
-const geonamesAPI = async (city) => {
-  const geoData = await fetchWrapper('http://api.geonames.org/searchJSON', new FetchOptions({
-    'q' : city,
-    'maxRows': 10,
-    'username': process.env.geoUsername
-    }));
-  
-  return {
-    longitude: geoData.geonames[0]['lng'],
-    latitude: geoData.geonames[0]['lat'],
-    country: geoData.geonames[0]['countryName'],
-    city: city === geoData.geonames[0]['countryName'] ? null : city
-  };
-}; 
+app.listen(port, () => console.log(`Listening on port ${port}`));
 
 /* GET Route */
 app.get('/', (req, res) => {
-  res.sendFile('src/index.html', { root: `${__dirname}/..` });
+  res.sendFile('index.html', { root: `${__dirname}/../../dist` });
 });
 
-/* POST Route */
+/**
+ * POST route
+ * 
+ * Call the APIs using the data sent from the client
+ * Send back to the client an object containing the APIs' responses
+ */
 app.post('/add', async (req, res) => {
-  console.log(req.body);
   const city = req.body.city;
 
   const geonameResponse = await geonamesAPI(city);
@@ -76,9 +42,13 @@ app.post('/add', async (req, res) => {
 
   const pixabayResponse = await pixabayAPI(city);
 
-  res.send({...req.body,
+  res
+  .status(201)
+  .send({...req.body,
     ...geonameResponse,
     ...darkSkyResponse,
     img: pixabayResponse
   });
 });
+
+module.exports = app;

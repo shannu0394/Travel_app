@@ -1,61 +1,41 @@
-import {picker} from './pikaday.js';
-import defaultImage from '../styles/location.png';
+/* Node Modules */
 import fetchWrapper from 'fetchWrapper';
 import FetchOptions from 'fetchWrapper/FetchOptions';
 import moment from 'moment';
-import {FORMAT} from './datepickerConfig';
 
+/* Project modules */
+import { FORMAT } from './datepickerConfig';
+import picker from './pikaday.js';
+import {imageCheck, cityCheck} from './helpers';
+import mapWeatherIcon from './mapWeatherIcon';
+
+//Constant exported to index.js
 const button = document.getElementById('generate');
-const cardParent = document.getElementById('cardParent');
 
-/* Check if no result from Pixabay API */
-const imageCheck = (img) => {
-  return img ?? defaultImage;
- };
-
- const cityCheck = (city) => {
-  return city ?? "Roadtrip";
- }
-
- const mapWeatherIcon = (expr) => {
-  switch(expr) {
-    case "clear-day" :
-    case "clear-night" :
-      return 'sun';
-    case "rain" :
-      return "cloud-showers-heavy";
-    case "snow" :
-      return "snowflake";
-    case "wind" :
-      return "wind";
-    case "fog" :
-      return "smog";
-    case "cloudy" :
-      return "cloud";
-    case "partly-cloudy-day" :
-    case "partly-cloudy-night" :
-      return "cloud-sun";
-    case "sleet" :
-      return "cloud-rain";
-  } 
- }
-
-/*/ DOM Create the card element */
-//moment('18 Mar 2020', 'DD MMM YYYY', 'en').toNow();
+/**
+ * Function to create a card element using the APIs data
+ * 
+ * @param {Object} data The API responses sent from the server
+ */
 const createTravelCard = (data) => {
+  //Create a countdown from the departure date to today
   let todayNoHours = moment(moment().format(FORMAT), FORMAT, 'en');
   let daysTo = todayNoHours.diff(moment(picker.toString(), FORMAT, 'en'), 'days');
   let countdownText = (daysTo) => {
     if (daysTo < 0) {
       return `${Math.abs(daysTo)} days left`
-    } else if (daysTo === 0){
+    } else if (daysTo === 0) {
       return "Today";
     }
     return `${daysTo} days ago`
   };
+
+  //Define the weather icon
+  const icon = mapWeatherIcon(data.icon);
+
+  //Create the card element
   let cardHolder = document.createDocumentFragment();
   const card = document.createElement('div');
-  const icon = mapWeatherIcon(data.icon);
   card.className = "card";
   card.innerHTML = `
   <div class="card-top">
@@ -74,26 +54,31 @@ const createTravelCard = (data) => {
       <div class="${icon}"><span class="fas fa-${icon}"></span></div>
     </div>
   </div>`;
+
+  //Append the card element
   cardHolder.appendChild(card);
   return cardHolder;
 };
 
 /* Post client data to server, get API datas, update the UI */
+/**
+ * Function to trigger the POST function and to append the new element to the DOM
+ * 
+ * @param {event} e The event
+ */
 const newTrip = async (e) => {
   e.preventDefault();
   const city = document.getElementById('city').value;
-  
-  const options = new FetchOptions({city: city}, 'POST', {
+
+  const options = new FetchOptions({ city: city }, 'POST', {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
   });
-
   const data = await fetchWrapper('http://localhost:3000/add', options);
-  console.log(data);
+
+  const cardParent = document.getElementById('cardParent');
   cardParent.appendChild(createTravelCard(data));
 };
-
-
 
 export {
   newTrip,
