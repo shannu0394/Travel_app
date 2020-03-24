@@ -2,10 +2,7 @@
 Capstone Project - Front-end nanodegree Udacity
 
 ## Description
-This project features a travel app to log your future (or past) travels.
-
-
-https://github.com/Pikaday/Pikaday
+This project features a travel app to log your future (or past) travels. Select your departure date and enter the city or country of destination to feed your travel journal !
 
 ### Installing
 
@@ -30,7 +27,7 @@ Run the tests.
 npm run test
 ```
 
-### Added options ("Extend your Project")
+## Added options ("Extend your Project")
 * Allow the user to remove the trip.
 * Incorporate icons into forecast.
 * Allow the user to add additional trips.
