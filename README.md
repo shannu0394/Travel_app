@@ -27,6 +27,11 @@ Run the tests.
 npm run test
 ```
 
+Open the browser and go to 
+```
+localhost:3000
+```
+
 ## Added options ("Extend your Project")
 * Allow the user to remove the trip.
 * Incorporate icons into forecast.
