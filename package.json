@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/runtime": "^7.9.2",
     "@fortawesome/fontawesome-free": "^5.12.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -25,11 +27,11 @@
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "pikaday": "^1.8.0",
     "regenerator-runtime": "^0.13.3",
-    "terser-webpack-plugin": "^2.3.5"
+    "terser-webpack-plugin": "^2.3.5",
+    "workbox-webpack-plugin": "^5.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "@types/jest": "^25.1.4",
     "babel-loader": "^8.0.6",
@@ -51,30 +53,7 @@
   "browserslist": [
     "last 1 chrome version",
     "last 1 firefox version",
-    "last 1 safari version"
-  ],
-  "jest": {
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
-    "transform": {
-      "^.+\\.ts?$": "ts-jest",
-      "^.+\\.tsx?$": "ts-jest",
-      "^.+\\.(js|jsx)?$": "babel-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?|ts?)?$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "moduleNameMapper": {
-      "^.+\\.(css|less|scss)$": "identity-obj-proxy"
-    },
-    "transformIgnorePatterns": []
-  }
+    "last 1 safari version",
+    "last 1 edge version"
+  ]
 }

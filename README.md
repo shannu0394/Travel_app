@@ -14,8 +14,16 @@ Use the package manager npm to install the project.
 npm install
 ```
 
-### Running
+### Run the project
+Build the project.
+```npm run build-prod
+```
 
 Run the server.
 ```npm start
 ```
+
+### Added options ("Extend your Project")
+* Allow the user to remove the trip.
+* Incorporate icons into forecast.
+* Allow the user to add additional trips.

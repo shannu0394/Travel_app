@@ -5,7 +5,7 @@ import moment from 'moment';
 
 /* Project modules */
 import { FORMAT } from './datepickerConfig';
-import picker from './pikaday.js';
+import picker from './datePicker.js';
 import {imageCheck, cityCheck} from './helpers';
 import mapWeatherIcon from './mapWeatherIcon';
 

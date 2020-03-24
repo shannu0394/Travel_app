@@ -1,4 +1,4 @@
-import picker from './pikaday';
+import picker from './datePicker';
 /*
 test('blabla', () => {
   expect(typeof picker).toBe("Object");
@@ -7,6 +7,6 @@ test('blabla', () => {
 
 describe('Picker', () => {
   it('picker', () => {
-    expect(typeof picker).toBe("Object");
+    expect(typeof picker).toBe("object");
   })
 });
