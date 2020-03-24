@@ -16,11 +16,18 @@ npm install
 
 ### Run the project
 Build the project.
-```npm run build-prod
+```
+npm run build-prod
 ```
 
 Run the server.
-```npm start
+```
+npm start
+```
+
+Run the tests.
+```
+npm run test
 ```
 
 ### Added options ("Extend your Project")
