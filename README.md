@@ -1,4 +1,4 @@
-# Weather App
+# Travel App
 Capstone Project - Front-end nanodegree Udacity
 
 ## Description
